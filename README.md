@@ -15,7 +15,7 @@ index.html                → Main application interface
 
 License (Custom — Non-Commercial, No Modification)
 
-================================================================================
+============================================================================
 
 Copyright © 2025 Ritik Dhage
 
@@ -31,7 +31,7 @@ Redistribution must always include credit to the original author.
 
 For permissions or special use cases, contact the owner directly.
 
-==============================================================================
+===========================================================================
 
 Disclaimer
 
