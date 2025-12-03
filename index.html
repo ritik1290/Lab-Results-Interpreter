@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Mystery Tour | Lab Results Interpreter</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.6/lottie.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Background Elements -->
+    <div class="background-container">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+        <div class="floating-icon icon-dna">🧬</div>
+        <div class="floating-icon icon-microscope">🔬</div>
+        <div class="floating-icon icon-blood">🩸</div>
+    </div>
+
+    <!-- Mascot Container -->
+    <div id="mascot-container" class="mascot-wrapper">
+        <img src="assets/monkey.svg" id="mascot-img" alt="Dr. Chimpsky" class="mascot-idle">
+        <div class="speech-bubble" id="mascot-speech">
+            Hi! I'm Dr. Chimpsky. Let's explore your health together!
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="top-navbar">
+        <div class="navbar-content">
+            <h3>🩺 Lab Results Interpreter</h3>
+            <button class="btn-home" onclick="resetApp()">🏠 Home</button>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main id="app-container">
+
+        <!-- Scene 1: Landing Page -->
+        <section id="scene-landing" class="scene active">
+            <div class="glass-card hero-card">
+                <h1>Your Health Story</h1>
+                <p class="subtitle">Turn your confusing lab results into a clear, interactive adventure.</p>
+                <button class="btn-primary" onclick="startJourney()">Start the Journey</button>
+            </div>
+        </section>
+
+        <!-- Scene 2: Input Selection -->
+        <section id="scene-input" class="scene hidden">
+            <div class="panel-header">
+                <h2>What did you test?</h2>
+                <p>Select a category to enter your results.</p>
+            </div>
+            <div class="category-grid" id="category-grid">
+                <!-- Categories injected by JS -->
+            </div>
+
+            <div id="test-input-area" class="hidden">
+                <button class="btn-back" onclick="showCategories()">← Back to Categories</button>
+                <h3 id="current-category-title">Category Name</h3>
+                <div class="input-list" id="input-list">
+                    <!-- Inputs injected by JS -->
+                </div>
+                <button class="btn-primary" onclick="analyzeResults()">Analyze My Results</button>
+            </div>
+        </section>
+
+        <!-- Scene 3: Interpretation Story -->
+        <section id="scene-results" class="scene hidden">
+            <div class="book-page" id="results-content">
+                <!-- Dynamic Story Content -->
+            </div>
+            <div class="book-controls">
+                <button class="btn-secondary" onclick="resetApp()">Start Over</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <p>Made with ❤️ for understanding your health • Educational purposes only</p>
+        <p class="footer-credit">Developed by Ritik Dhage • Always consult your physician for medical decisions</p>
+    </footer>
+
+    <!-- Modal for Learn More -->
+    <div id="info-modal" class="modal hidden">
+        <div class="modal-content glass-card">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title">Title</h2>
+            <div id="modal-body">Content</div>
+            <a id="modal-link" href="#" target="_blank" class="btn-link">Read on PubMed</a>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
