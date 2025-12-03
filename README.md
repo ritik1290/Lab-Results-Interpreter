@@ -15,7 +15,7 @@ index.html                → Main application interface
 
 License (Custom — Non-Commercial, No Modification)
 
-============================================================================================================================
+================================================================================
 
 Copyright © 2025 Ritik Dhage
 
@@ -31,10 +31,14 @@ Redistribution must always include credit to the original author.
 
 For permissions or special use cases, contact the owner directly.
 
-============================================================================================================================
+==============================================================================
 
 Disclaimer
 
 This tool is for educational use only.
 It does not provide medical advice, does not diagnose conditions, and must not be used for clinical decision-making.
 Always consult a licensed medical professional for real medical interpretation.
+
+==============================================================================
+
+License: Ritik Dhage Custom Non-Commercial No-Derivatives License (RC-NC-ND) — © 2025 Ritik Dhage. Use & share for non-commercial/educational purposes only. No modifications allowed without permission. Contact: https://github.com/ritik1290
