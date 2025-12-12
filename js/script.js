@@ -545,6 +545,30 @@ const medicalData = {
     ]
 };
 
+const categoryImages = {
+    "CBC": "images/icon_cbc.png",
+    "BMP": "images/icon_bmp.png",
+    "LFT": "images/icon_lft.png",
+    "Kidney": "images/icon_kidney.png",
+    "Thyroid": "images/icon_thyroid.png",
+    "Iron": "images/icon_cbc.png", // Reusing CBC for blood/iron
+    "Lipid": "images/icon_bmp.png", // Reusing BMP for chemistry
+    "Inflammation": "images/icon_cbc.png", // Reusing CBC for immune response
+    "Others": "images/icon_bmp.png" // Reusing BMP for general
+};
+
+const categoryDescriptions = {
+    "CBC": "Complete Blood Count: Checks your overall health and immune system.",
+    "BMP": "Basic Metabolic Panel: Checks your blood sugar, kidney function, and electrolytes.",
+    "LFT": "Liver Function Tests: Checks how well your liver is working.",
+    "Kidney": "Kidney Function: Checks how well your kidneys are filtering waste.",
+    "Thyroid": "Thyroid Panel: Checks your metabolism and energy levels.",
+    "Iron": "Iron Studies: Checks for anemia and iron levels.",
+    "Lipid": "Lipid Panel: Checks your cholesterol and heart health.",
+    "Inflammation": "Inflammation Markers: Checks for infection or swelling in the body.",
+    "Others": "Vitamins & Others: Checks for specific deficiencies like B12 or D."
+};
+
 let userInputs = {};
 let currentCategory = null;
 
@@ -563,6 +587,13 @@ const modal = document.getElementById('info-modal');
 document.addEventListener('DOMContentLoaded', () => {
     // Data is now embedded, no need to fetch
     mascotSay("Welcome! I'm Dr. Chimpsky. Click 'Start the Journey' to begin!");
+
+    // Make navbar title clickable to go home
+    const navTitle = document.querySelector('.navbar-content h3');
+    if (navTitle) {
+        navTitle.style.cursor = 'pointer';
+        navTitle.addEventListener('click', resetApp);
+    }
 });
 
 // Navigation & Story Flow
@@ -605,7 +636,13 @@ function renderCategories() {
     categories.forEach(cat => {
         const card = document.createElement('div');
         card.className = 'category-card';
-        card.innerHTML = `<h3>${cat}</h3>`;
+        const imgPath = categoryImages[cat] || 'images/icon_bmp.png';
+        const desc = categoryDescriptions[cat] || "Analyze your results.";
+        card.innerHTML = `
+            <img src="${imgPath}" alt="${cat}" class="category-img">
+            <h3>${cat}</h3>
+            <p class="category-desc">${desc}</p>
+        `;
         card.onclick = () => showInputs(cat);
         categoryGrid.appendChild(card);
     });
@@ -621,7 +658,11 @@ function showInputs(category) {
     currentCategory = category;
     categoryGrid.classList.add('hidden');
     testInputArea.classList.remove('hidden');
-    currentCategoryTitle.textContent = category;
+    testInputArea.classList.remove('hidden');
+    currentCategoryTitle.innerHTML = `
+        <img src="${categoryImages[category] || 'images/img_bmp.png'}" class="header-img">
+        ${category}
+    `;
 
     // Create a grid container for inputs
     inputList.innerHTML = '<div class="card-grid" id="input-grid-container"></div>';
@@ -635,7 +676,9 @@ function showInputs(category) {
             const card = document.createElement('div');
             card.className = 'input-card';
             card.innerHTML = `
-                <label>${test.name} <span class="unit">(${test.unit})</span></label>
+                <div style="margin-bottom: 15px;">
+                    <label style="margin:0; font-size: 1.1rem; font-weight: 700;">${test.name} <span class="unit">(${test.unit})</span></label>
+                </div>
                 <div class="range-hint">Normal: ${test.normal_range[0]} - ${test.normal_range[1]}</div>
                 <input type="number" step="0.01" id="input-${key}" placeholder="Enter value..." onchange="saveInput('${key}', this.value)">
             `;
@@ -729,7 +772,7 @@ function renderHappyPath() {
     mascotSay("Great news! Everything looks balanced.", "happy");
     resultsContent.innerHTML = `
         <div class="result-card" style="text-align: center; max-width: 600px; margin: 0 auto;">
-            <h2>🎉 All Clear!</h2>
+            <h2><i class="fa-solid fa-circle-check" style="color: #2ecc71;"></i> All Clear!</h2>
             <p>Based on the values you entered, everything falls within the normal range.</p>
             <p>Keep up the great work taking care of your health!</p>
         </div>
@@ -743,7 +786,7 @@ function renderFindings(findings, patterns) {
 
     // Patterns First
     if (patterns.length > 0) {
-        html += `<h2>🧩 Patterns Detected</h2><div class="card-grid">`;
+        html += `<h2><i class="fa-solid fa-puzzle-piece" style="color: #3498db;"></i> Patterns Detected</h2><div class="card-grid">`;
         patterns.forEach(p => {
             html += `
                 <div class="result-card">
@@ -760,7 +803,7 @@ function renderFindings(findings, patterns) {
 
     // Individual Findings
     if (findings.length > 0) {
-        html += `<h2 style="margin-top: 40px;">📊 Individual Results</h2><div class="card-grid">`;
+        html += `<h2 style="margin-top: 40px;"><i class="fa-solid fa-chart-simple" style="color: #9b59b6;"></i> Individual Results</h2><div class="card-grid">`;
         findings.forEach(item => {
             const statusClass = item.status === 'high' ? 'status-high' : 'status-low';
             const meaning = item.status === 'high' ? item.info.high_meaning : item.info.low_meaning;
@@ -786,18 +829,37 @@ function renderFindings(findings, patterns) {
     // Disclaimer
     html += `
         <div class="disclaimer-box" style="margin-top: 40px; padding: 20px; background: #f8f9fa; border-radius: 12px; font-size: 0.8rem; color: #666;">
-            <strong>⚠️ Medical Disclaimer:</strong> This tool is for educational purposes only and cannot diagnose. Consult your physician for medical decisions.
+            <strong><i class="fa-solid fa-triangle-exclamation" style="color: #f39c12;"></i> Medical Disclaimer:</strong> This tool is for educational purposes only and cannot diagnose. Consult your physician for medical decisions.
         </div>
     `;
 
     resultsContent.innerHTML = html;
 }
 
+
 function resetApp() {
+    // Clear all user inputs
     userInputs = {};
-    switchScene('scene-results', 'scene-landing');
+    currentCategory = null;
+
+    // Hide ALL scenes first
+    document.getElementById('scene-landing').classList.remove('active', 'hidden');
+    document.getElementById('scene-input').classList.remove('active', 'hidden');
+    document.getElementById('scene-results').classList.remove('active', 'hidden');
+
+    document.getElementById('scene-landing').classList.add('hidden');
+    document.getElementById('scene-input').classList.add('hidden');
+    document.getElementById('scene-results').classList.add('hidden');
+
+    // Show only landing page
+    setTimeout(() => {
+        document.getElementById('scene-landing').classList.remove('hidden');
+        document.getElementById('scene-landing').classList.add('active');
+    }, 100);
+
     mascotSay("Welcome back! Ready for another journey?");
 }
+
 
 // Modal & External Links
 function openExternalSearch(query) {
@@ -815,3 +877,4 @@ window.onclick = function (event) {
         closeModal();
     }
 }
+

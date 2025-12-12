@@ -11,6 +11,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.6/lottie.min.js"></script>
 </head>
 
@@ -21,9 +22,9 @@
         <div class="floating-shape shape-1"></div>
         <div class="floating-shape shape-2"></div>
         <div class="floating-shape shape-3"></div>
-        <div class="floating-icon icon-dna">🧬</div>
-        <div class="floating-icon icon-microscope">🔬</div>
-        <div class="floating-icon icon-blood">🩸</div>
+        <div class="floating-icon icon-dna"><i class="fa-solid fa-dna"></i></div>
+        <div class="floating-icon icon-microscope"><i class="fa-solid fa-microscope"></i></div>
+        <div class="floating-icon icon-blood"><i class="fa-solid fa-droplet"></i></div>
     </div>
 
     <!-- Mascot Container -->
@@ -37,10 +38,10 @@
     <!-- Navigation Bar -->
     <nav class="top-navbar">
         <div class="navbar-content">
-            <h3>🩺 Lab Results Interpreter</h3>
-            <button class="btn-home" onclick="resetApp()">🏠 Home</button>
+            <h3><i class="fa-solid fa-user-doctor"></i> Lab Results Interpreter</h3>
         </div>
     </nav>
+
 
     <!-- Main Content Area -->
     <main id="app-container">
@@ -48,6 +49,7 @@
         <!-- Scene 1: Landing Page -->
         <section id="scene-landing" class="scene active">
             <div class="glass-card hero-card">
+                <img src="images/hero_new.png" alt="Medical Mystery" class="hero-img">
                 <h1>Your Health Story</h1>
                 <p class="subtitle">Turn your confusing lab results into a clear, interactive adventure.</p>
                 <button class="btn-primary" onclick="startJourney()">Start the Journey</button>
@@ -65,7 +67,8 @@
             </div>
 
             <div id="test-input-area" class="hidden">
-                <button class="btn-back" onclick="showCategories()">← Back to Categories</button>
+                <button class="btn-back" onclick="showCategories()"><i class="fa-solid fa-arrow-left"></i> Back to
+                    Categories</button>
                 <h3 id="current-category-title">Category Name</h3>
                 <div class="input-list" id="input-list">
                     <!-- Inputs injected by JS -->
@@ -88,7 +91,7 @@
 
     <!-- Footer -->
     <footer class="app-footer">
-        <p>Made with ❤️ for understanding your health • Educational purposes only</p>
+        <p>Made with <i class="fa-solid fa-heart"></i> for understanding your health • Educational purposes only</p>
         <p class="footer-credit">Developed by Ritik Dhage • Always consult your physician for medical decisions</p>
     </footer>
 
